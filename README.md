@@ -1,63 +1,75 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=19889693&assignment_repo_type=AssignmentRepo)
-# Express.js RESTful API Assignment
+# Express.js RESTful API
 
-This assignment focuses on building a RESTful API using Express.js, implementing proper routing, middleware, and error handling.
-
-## Assignment Overview
-
-You will:
-1. Set up an Express.js server
-2. Create RESTful API routes for a product resource
-3. Implement custom middleware for logging, authentication, and validation
-4. Add comprehensive error handling
-5. Develop advanced features like filtering, pagination, and search
-
-## Getting Started
-
-1. Accept the GitHub Classroom assignment invitation
-2. Clone your personal repository that was created by GitHub Classroom
-3. Install dependencies:
-   ```
-   npm install
-   ```
-4. Run the server:
-   ```
-   npm start
-   ```
-
-## Files Included
-
-- `Week2-Assignment.md`: Detailed assignment instructions
-- `server.js`: Starter Express.js server file
-- `.env.example`: Example environment variables file
-
-## Requirements
-
-- Node.js (v18 or higher)
-- npm or yarn
-- Postman, Insomnia, or curl for API testing
+## Setup Instructions
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Copy `.env.example` to `.env` and set your API key
+4. Start the server: `npm start`
 
 ## API Endpoints
+- `GET /`: Returns "Hello World"
+- `GET /api/products`: List all products (supports ?category, ?page, ?limit, ?search)
+- `GET /api/products/:id`: Get specific product
+- `POST /api/products`: Create new product
+- `PUT /api/products/:id`: Update product
+- `DELETE /api/products/:id`: Delete product
+- `GET /api/products/stats`: Get product statistics
 
-The API will have the following endpoints:
+## Request Examples
+### Create Product
 
-- `GET /api/products`: Get all products
-- `GET /api/products/:id`: Get a specific product
-- `POST /api/products`: Create a new product
-- `PUT /api/products/:id`: Update a product
-- `DELETE /api/products/:id`: Delete a product
+POST /api/products
+Headers: X-API-Key: your-api-key
+Body:
+{
+"name": "Product Name",
+"description": "Product Description",
+"price": 99.99,
+"category": "electronics",
+"inStock": true
+}
 
-## Submission
+### Get Products with Pagination
 
-Your work will be automatically submitted when you push to your GitHub Classroom repository. Make sure to:
+GET /api/products?page=1&limit=10&category=electronics
+Headers: X-API-Key: your-api-key
 
-1. Complete all the required API endpoints
-2. Implement the middleware and error handling
-3. Document your API in the README.md
-4. Include examples of requests and responses
+## Response Examples
+### Success Response
+```json
+{
+  "products": [
+    {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "name": "Product Name",
+      "description": "Product Description",
+      "price": 99.99,
+      "category": "electronics",
+      "inStock": true,
+      "createdAt": "2025-07-03T13:18:00.000Z"
+    }
+  ],
+  "total": 1,
+  "page": 1,
+  "limit": 10
+}
 
-## Resources
+Error response
+{
+  "error": {
+    "message": "Product not found",
+    "status": 404
+  }
+}
 
-- [Express.js Documentation](https://expressjs.com/)
-- [RESTful API Design Best Practices](https://restfulapi.net/)
-- [HTTP Status Codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) 
+ Testing Instructions
+To test the API:
+1. Install dependencies: `npm install`
+2. Create `.env` file with `API_KEY=your-api-key`
+3. Start server: `npm start`
+4. Use Postman/Insomnia with the following headers:
+   - `X-API-Key: your-api-key`
+   - `Content-Type: application/json`
+5. Test endpoints with appropriate request bodies
+
+
